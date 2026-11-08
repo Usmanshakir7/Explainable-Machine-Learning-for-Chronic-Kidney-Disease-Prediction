@@ -1,132 +1,90 @@
 # Explainable Machine Learning for Chronic Kidney Disease Prediction
 
-A Data Mining project focused on predicting **Chronic Kidney Disease (CKD) progression** using machine learning and explainable AI techniques.
+This is my Data Mining semester project, where I'm exploring how machine learning can help predict the progression of **Chronic Kidney Disease (CKD)**.
 
-The project uses longitudinal kidney function data to analyze changes in estimated Glomerular Filtration Rate (eGFR), predict disease progression, and identify factors influencing model predictions.
+I'm using repeated kidney-function measurements to understand how **estimated glomerular filtration rate (eGFR)** changes over time. My goal is to build and compare prediction models, then use explainable AI to understand which available features influence their predictions.
 
-## Project Overview
+> **Project status:** In progress. Data exploration, integration, and preprocessing demonstrations are underway/completed. Prediction models and explanations have not been built yet.
 
-Chronic Kidney Disease is a condition in which kidney function gradually decreases over time. Early identification of disease progression can help support clinical research and risk assessment.
+## What I'm trying to do
 
-This project aims to develop and compare machine learning models for predicting CKD progression using repeated patient measurements.
+CKD can progress at different rates for different people. By studying eGFR measurements taken over time, I want to investigate whether machine learning can identify patients who may experience further kidney-function decline.
 
-## Objectives
-
-- Explore and understand longitudinal CKD data.
-- Apply data cleaning and preprocessing techniques.
-- Analyze kidney function trends using EDA.
-- Perform feature engineering and feature selection.
-- Train and compare machine learning models.
-- Evaluate prediction performance using classification metrics.
-- Explain model predictions using SHAP or LIME.
+For this project, I plan to:
+- Explore the data and check its quality.
+- Handle missing and inconsistent information carefully.
+- Combine baseline and follow-up measurements.
+- Examine eGFR trends and create features using information available at prediction time.
+- Define a future CKD progression outcome.
+- Compare Logistic Regression, Random Forest, and XGBoost.
+- Evaluate the models and explain their predictions using SHAP or LIME.
 
 ## Dataset
 
-**Dataset:** SMART-C — Longitudinal eGFR Trajectory and Survival Benchmark Dataset
+I'm using the **SMART-C Longitudinal eGFR Trajectory and Survival Benchmark Dataset** from [Mendeley Data](https://data.mendeley.com/datasets/xkc9x7v2sr/1).
 
-**Source:** [Mendeley Data](https://data.mendeley.com/datasets/xkc9x7v2sr/1)
+| File | What it contains |
+| --- | --- |
+| `baseline.csv` | One baseline record for each of 5,000 patients |
+| `followup.csv` | 41,800 records of kidney-function measurements over time |
 
-The dataset contains:
+Some of the fields used in the project are `patient_id`, `baseline_egfr`, `egfr_value`, `study_day`, `treatment_group`, and `egfr_category`.
 
-- 5,000 patient records.
-- 41,800 longitudinal eGFR observations.
-- `baseline.csv` — Baseline patient information.
-- `followup.csv` — Repeated kidney function measurements.
+**Dataset limitation:** The files don't include several clinical factors mentioned in my original proposal, such as age, blood pressure, hemoglobin, and diabetes status. My implementation will focus on the variables that are actually available. The dataset's benchmark provenance and limitations will also be documented; results should not be treated as validated clinical predictions.
 
-### Key Features
+## What I've worked on so far
 
-| Feature | Description |
-|---|---|
-| patient_id | Unique patient identifier |
-| baseline_egfr | Initial kidney function measurement |
-| egfr_value | eGFR measurement during follow-up |
-| study_day | Day of follow-up measurement |
-| treatment_group | Treatment assignment |
-| baseline_glp1 | Baseline GLP-1 therapy indicator |
-| egfr_category | Baseline eGFR category |
+- Loaded and explored both CSV files using Pandas.
+- Renamed columns to make them easier to understand.
+- Checked missing values, duplicates, repeated patient visits, and unusual eGFR measurements.
+- Used the IQR method and box plots to investigate potential outliers without automatically deleting them.
+- Joined the baseline and follow-up tables using patient IDs, and checked that the follow-up rows were preserved.
+- Compared repeated columns and prepared a merged dataset.
+- Demonstrated Min-Max normalization and Z-score standardization.
 
-**Dataset limitation:** Some clinical attributes mentioned in the original proposal, including age, blood pressure, hemoglobin and diabetes status, are unavailable in this dataset. The analysis will focus on the available eGFR-related features.
+The scaling exercises are for understanding preprocessing. When I train models, I'll split patients first and fit preprocessing steps using only the training data to avoid data leakage.
 
-## Project Workflow
+## What's next
 
-1. **Data Collection:** Load and explore the SMART-C dataset.
-2. **Data Preprocessing:** Identify missing values, duplicates, outliers and inconsistent data.
-3. **Data Integration:** Combine baseline and follow-up records using patient identifiers.
-4. **Data Transformation:** Apply encoding, normalization and standardization where appropriate.
-5. **Exploratory Data Analysis:** Visualize eGFR distributions and changes over time.
-6. **Feature Engineering:** Construct relevant features from measurements available before prediction.
-7. **Model Training:** Train and compare machine learning models.
-8. **Model Evaluation:** Evaluate prediction performance.
-9. **Explainable AI:** Interpret model predictions using SHAP or LIME.
+1. Define a clear CKD progression target and prediction time window.
+2. Create a patient-level dataset with features available before the outcome.
+3. Explore trends and relationships in the prepared data.
+4. Train and compare machine learning models.
+5. Evaluate performance using accuracy, precision, recall, F1-score, and ROC-AUC.
+6. Use SHAP or LIME to interpret model predictions.
 
-## Machine Learning Models
+## Tools and libraries
 
-The following algorithms are planned:
+**Currently used:** Python, Pandas, Matplotlib, scikit-learn, Jupyter Notebook.
 
-- Logistic Regression
-- Random Forest
-- XGBoost
+**Planned for later stages:** NumPy, Seaborn, XGBoost, SHAP or LIME.
 
-### Evaluation Metrics
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
-
-## Technologies
-
-- **Python** — Programming language
-- **Pandas and NumPy** — Data processing
-- **Matplotlib and Seaborn** — Data visualization
-- **Scikit-learn** — Machine learning
-- **XGBoost** — Gradient boosting
-- **SHAP / LIME** — Model explainability
-- **Jupyter Notebook / VS Code** — Development environment
-
-## Project Structure
+## Repository structure
 
 ```text
-CKD-Progression-Prediction/
-│
 ├── datasets/
-│   ├── baseline.csv
-│   └── followup.csv
-│
+│   ├── raw/
+│   │   ├── baseline.csv
+│   │   └── followup.csv
+│   └── processed/
+│       └── smart_c_merged.csv
 ├── notebooks/
-│   ├── 01_data_understanding.ipynb
-│   ├── 02_data_preprocessing.ipynb
-│   ├── 03_exploratory_analysis.ipynb
-│   ├── 04_model_training.ipynb
-│   └── 05_model_explainability.ipynb
-│
-├── results/
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+│   ├── 1_data_understanding.ipynb
+│   └── 2_data_preprocessing.ipynb
+└── README.md
 ```
 
-*This is the planned repository structure. Files will be added as development progresses.*
+I'll add feature-engineering, modeling, and explainability notebooks as the project progresses.
 
-## Project Status
+## Academic details
 
-**In Progress**
+- **Subject:** Data Mining
+- **Department:** Data Science
+- **Year:** 2026
+- **Instructor:** Mr. Muhammad Hussain
+- **Student:** Usman Shakir
+- **Roll number:** 24F-DS-122
 
-Current phase: Data Understanding and Preprocessing.
+## Note
 
-Future work includes feature engineering, model development, evaluation and explainability.
-
-## Academic Information
-
-**Subject:** Data Mining  
-**Department:** Data Science  
-**Project Year:** 2026  
-**Instructor:** Mr. Muhammad Hussain  
-**Student:** Usman Shakir  
-**Roll Number:** 24F-DS-122
-
-## Disclaimer
-
-This project is developed for educational and research purposes only. Its predictions are not intended for clinical diagnosis or medical decision-making.
+This is a university learning and research project. It is **not a medical diagnosis tool** and should not be used to make clinical decisions.
