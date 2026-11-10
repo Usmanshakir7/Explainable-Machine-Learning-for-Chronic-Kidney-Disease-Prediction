@@ -101,22 +101,6 @@ In Random Forest's built-in feature importance, **baseline eGFR** ranked first (
 
 Python, Jupyter Notebook, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, XGBoost, and SHAP.
 
-## How to run
-
-1. Download or clone this repository.
-2. Open the project folder in VS Code or Jupyter.
-3. Install the required Python libraries in your notebook's Python environment:
-
-   ```python
-   %pip install pandas numpy matplotlib seaborn scikit-learn xgboost shap
-   ```
-
-4. Run the notebooks in numerical order, starting with **01 — Data Understanding**.
-5. If needed, change the `project_dir` / local Windows path in the notebooks to match your computer.
-6. Notebook 03 saves `ckd_model_ready.csv`, which is used by Notebooks 04 and 05.
-
-The notebooks contain saved outputs, but running them requires access to the dataset files and the appropriate Python environment.
-
 ## Limitations
 
 - The prediction target is **a single Week 52 eGFR decline**, not confirmed sustained CKD progression.
@@ -127,15 +111,3 @@ The notebooks contain saved outputs, but running them requires access to the dat
 - The dataset's benchmark provenance and suitability for real-world clinical prediction have not been independently established.
 - The explainability results do not establish causation.
 
-## Academic details
-
-- **Subject:** Data Mining
-- **Department:** Data Science
-- **Year:** 2026
-- **Instructor:** Mr. Muhammad Hussain
-- **Student:** Usman Shakir
-- **Roll number:** 24F-DS-122
-
----
-
-**Academic-use disclaimer:** This is a university learning and research project. It is **not a medical diagnosis or decision-support tool**, and its predictions should not be used to make clinical decisions.
